@@ -9,13 +9,13 @@
 }(this, function () {
 
     return {
-      orgUrl: 'https://example.oktapreview.com',
-      apiToken: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-      authzIssuer: 'https://example.oktapreview.com/oauth2/aus8q4gst8vbUGzFp0h7',
-      clientId: 'ANRZhyDh8HBFN5abN6Rg',
-      idp: '0oa4ftg4vzKlWHHEJ0h7',
-      scopes: ['openid', 'email', 'profile', 'phone', 'address', 'groups'],
-      protectedScope: 'api:read'
+        orgUrl: 'https://devdcirecondo.okta.com',
+        apiToken: '00aiVmxRp9BElWnbRqo9z8Evi4RFBbi7aeKKMefxra',
+        authzIssuer: 'https://devdcirecondo.okta.com/oauth2/aus3rfvv75UZKWqcX1t7',
+        clientId: '0oa3l0wfqGvduxLh72p6',
+        idp: '0oa3lbp51Sb38fzbo2p6',
+        scopes: ['openid', 'email', 'profile', 'phone', 'address', 'groups'],
+        protectedScope: 'api:read'
     };
 
 }));

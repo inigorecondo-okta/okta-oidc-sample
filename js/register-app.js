@@ -17,7 +17,7 @@ define(['jquery', 'okta-config'], function($, OktaConfig) {
     registration: {
       //clientId: OktaConfig.clientId  
       click: function () {
-            //window.location.href = 'https://devdcirecondo.okta.com/signin/register';
+            //window.location.href = 'https://acme.com/sign-up';
             window.location.href = 'http://localhost:8080/register.html';
         } },
     features: {
@@ -69,34 +69,34 @@ define(['jquery', 'okta-config'], function($, OktaConfig) {
   });
 
   var resetDisplay = function() {
-    $('#claims').hide();
-    $('#actions').hide();
-    $('#api-resources').hide();
-    $('#error').hide();
+    //$('#claims').hide();
+    //$('#actions').hide();
+    //$('#api-resources').hide();
+    //$('#error').hide();
   };
 
   var displayError = function(msg) {
-    $('#error').html('<p>'+ msg + '</p>');
-    $('#error').show();
+    //$('#error').html('<p>'+ msg + '</p>');
+    //$('#error').show();
   };
 
   var displayClaims = function(claims) {
-    $('#claims code').html(JSON.stringify(claims, null, '  '));
-    $('pre code').each(function(i, block) {
-      hljs.highlightBlock(block);
-    });
-    $('#claims').show();
+    //$('#claims code').html(JSON.stringify(claims, null, '  '));
+    //$('pre code').each(function(i, block) {
+    //  hljs.highlightBlock(block);
+    //});
+    //$('#claims').show();
   };
 
   var displayActions = function(addSignInWidget) {
-    var actions = [];
-    if (addSignInWidget) {
-      actions.push('<button id="btn-sign-in" type="button" class="btn">Sign-in with Account</button>');
-    }
-    actions.push('<button id="btn-sign-out" type="button" class="btn">Sign out</button>');
-    actions.push('<button id="btn-refresh" type="button" class="btn">Refresh Token</button>');
+    //var actions = [];
+    //if (addSignInWidget) {
+    //  actions.push('<button id="btn-sign-in" type="button" class="btn">Sign-in with Account</button>');
+    //}
+    //actions.push('<button id="btn-sign-out" type="button" class="btn">Sign out</button>');
+    //actions.push('<button id="btn-refresh" type="button" class="btn">Refresh Token</button>');
 
-    $('#actions').html(actions.join()).show();
+    //$('#actions').html(actions.join()).show();
   }
 
   var displayApiResources = function(idToken) {
@@ -182,4 +182,49 @@ define(['jquery', 'okta-config'], function($, OktaConfig) {
       renderWidget();
     }
   });
+
+
+  $('#btn-reg').click(function () {
+    var oktaurl = OktaConfig.orgUrl + "/api/v1/users?activate=false";
+    var apiToken = "00aiVmxRp9BElWnbRqo9z8Evi4RFBbi7aeKKMefxra";
+
+    //alert("oktaurl: " + oktaurl);
+
+    var firstname = $('#firstname').val();
+    var lastname = $('#lastname').val();
+    var email = $('#email').val();
+    var userreg = $('#userreg').val();
+    var mobilenumber = $('#mobilenumber').val();
+    var passreg = $('#passreg').val();
+
+    var jsondata = "{ \"profile\": { \"firstName\": \"" + firstname + "\",\"lastName\": \"" + lastname
+    + "\",\"email\": \"" + email + "\",\"login\": \""
+    + userreg + "\",\"mobilePhone\": \"" + mobilenumber
+    + "\"},\"credentials\":{\"password\":{\"value\":\"" + passreg + "\"}}}"
+
+    //alert("jsondata: " + jsondata);
+
+    $.ajax({
+        url: oktaurl,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'SSWS ' + apiToken,
+        },
+        method: 'POST',
+        dataType: 'json',
+        data: jsondata,
+        success: function (data) {
+            alert("User has been created successfully" + JSON.stringify(data));
+            //displayClaims(data);
+        },
+        error: function (data) {
+            alert("error: " + JSON.stringify(data));
+            //displayError(data.message);
+            //displayClaims(JSON.stringify(data));
+        }
+    });
+});
+
+
 });
